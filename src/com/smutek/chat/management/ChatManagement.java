@@ -49,6 +49,7 @@ public class ChatManagement extends Thread {
         }
     }
 
+
     public static void sendJoiningMessage(String nickname, String channelName){
         byte[] buffer = createChatActionBuffer(nickname, channelName, ChatOperationProtos.ChatAction.ActionType.JOIN);
         Message msg = new Message(null, null, buffer);

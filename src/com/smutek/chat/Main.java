@@ -60,6 +60,7 @@ public class Main {
                         for (ChatChannel channel: myChannels){
                             ChatManagement.sendLeavingMessage(nickname,channel.getChannelName());
                         }
+                        disconnect();
                         System.exit(0);
                         break;
                     default:
@@ -91,5 +92,10 @@ public class Main {
             }
         }
         myChannels.remove(tmpChannel);
+    }
+    private static void disconnect(){
+        for (ChatChannel channel: myChannels){
+                channel.getChannel().disconnect();
+        }
     }
 }

@@ -18,14 +18,14 @@ public class ChatChannel {
     private String channelName;
     private String nickname;
 
-    public ChatChannel(String chatName, String nickname) throws UnknownHostException {
+    public ChatChannel(String channelName, String nickname) throws UnknownHostException {
         this.nickname = nickname;
-        this.channelName = chatName;
+        this.channelName = channelName;
         System.setProperty("java.net.preferIPv4Stack", "true");
         channel = new JChannel(false);
         ProtocolStack stack = new ProtocolStack();
         channel.setProtocolStack(stack);
-        stack.addProtocol(new UDP().setValue("mcast_group_addr", InetAddress.getByName(chatName)))
+        stack.addProtocol(new UDP().setValue("mcast_group_addr", InetAddress.getByName(channelName)))
                 .addProtocol(new PING())
                 .addProtocol(new MERGE3())
                 .addProtocol(new FD_SOCK())
@@ -45,8 +45,8 @@ public class ChatChannel {
 
             stack.init();
             channel.setName(nickname);
-            channel.setReceiver(new ChatReceiver(nickname, channelName));
-            channel.connect(chatName);
+            channel.setReceiver(new ChatReceiver(nickname, this.channelName));
+            channel.connect(channelName);
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -55,6 +55,10 @@ public class ChatChannel {
 
     public String getChannelName(){
         return channelName;
+    }
+
+    public JChannel getChannel() {
+        return channel;
     }
 
     public void sendMessage(byte[] message){

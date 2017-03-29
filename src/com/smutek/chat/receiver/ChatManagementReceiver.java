@@ -2,6 +2,7 @@ package com.smutek.chat.receiver;
 
 import com.google.protobuf.InvalidProtocolBufferException;
 import com.smutek.chat.protos.ChatOperationProtos;
+import org.jgroups.Address;
 import org.jgroups.Message;
 import org.jgroups.ReceiverAdapter;
 import org.jgroups.View;
@@ -88,8 +89,4 @@ public class ChatManagementReceiver extends ReceiverAdapter {
         }
     }
 
-    @Override
-    public void viewAccepted(View view) {
-        super.viewAccepted(view);
-    }
 }
